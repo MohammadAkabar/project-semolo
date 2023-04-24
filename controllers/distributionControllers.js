@@ -25,8 +25,6 @@ class DistributionControllers {
     try {
       const { WakafId, obtained_at } = req.params
 
-      console.log(req.params)
-
       if (!obtained_at || !WakafId) {
         return errResponse(400, 'All params cannot be null', res)
       }
@@ -37,7 +35,7 @@ class DistributionControllers {
           WakafId,
         },
       })
-      console.log(getDistribution, '<<<<<')
+
       if (!getDistribution) {
         return errResponse(404, 'Distribution not found', res)
       }

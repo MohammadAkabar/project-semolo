@@ -124,10 +124,10 @@ class AssetControllers {
       }
 
       const newReqAsset = await Recipe.create({
-        UserId: req.user.id,
-        AssetId: id,
-        isActive: 'waiting',
-        totalPrice: asset.price,
+        user_id: req.user.id,
+        asset_id: id,
+        is_active: 'waiting',
+        total_price: asset.price,
       })
 
       return successResponse(
@@ -148,9 +148,11 @@ class AssetControllers {
       const asset = await Recipe.findAll({
         // include: [User, Asset],
         where: {
-          isActive: 'waiting',
+          is_active: 'waiting',
         },
       })
+
+      console.log("ASSETTT", asset);
 
       if (!asset[0]) {
         return errResponse(404, 'Asset not found', response)
@@ -174,20 +176,20 @@ class AssetControllers {
       const deadline = new Date(now.getFullYear(), now.getMonth() + 1, 1)
       const getAsset = await Recipe.findOne({
         where: {
-          AssetId: id,
+          asset_id: id,
         },
       })
 
       if (!getAsset) {
-        return errResponse(400, 'Asset ID not found', response)
-      } else if (getAsset.isActive === 'true') {
-        return errResponse(400, 'Asset already accepted', response)
-      } else if (getAsset.isActive === 'false') {
-        return errResponse(400, 'Asset already rejected', response)
+        return errResponse(404, 'Asset ID not found', response)
+      } else if (getAsset.is_active === 'true') {
+        return errResponse(200, 'Asset already accepted', response)
+      } else if (getAsset.is_active === 'false') {
+        return errResponse(200, 'Asset already rejected', response)
       }
 
       //udpate
-      getAsset.isActive = true
+      getAsset.is_active = true
       getAsset.deadline = deadline
       await getAsset.save()
 

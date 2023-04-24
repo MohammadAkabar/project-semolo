@@ -13,6 +13,8 @@ class AuthControllers {
   static async register(req, res) {
     try {
       const { email, password, name, role, address, phoneNumber } = req.body
+
+      console.log("TTTTTT",email);
       const image = req.file
 
       if (!email || !password || !image) {

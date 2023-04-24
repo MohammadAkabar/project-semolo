@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Fund.hasMany(models.Wakaf)
     }
   }
   Fund.init(
@@ -19,6 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Fund',
+      tableName: 'funds',
+      underscored: true,
     }
   )
   return Fund

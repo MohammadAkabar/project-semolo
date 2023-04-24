@@ -22,7 +22,8 @@ class WakafControllers {
       })
 
       const distributions = await Distribution.create({
-        WakafId: newWakaf.id,
+        wakaf_id: newWakaf.id,
+        // fund_id:,
         amount: 300000,
       })
 
